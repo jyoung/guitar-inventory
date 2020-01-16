@@ -19,6 +19,9 @@ app.use(express.json());
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
+// configure express to serve static files in the public folder
+app.use(express.static(path.join(__dirname, "public")));
+
 // configure session auth
 sessionAuth.register(app);
 
