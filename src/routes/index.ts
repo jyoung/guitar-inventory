@@ -1,4 +1,5 @@
 import * as express from "express";
+import * as api from "./api";
 
 export const register = (app: express.Application) => {
     const oidc = app.locals.oidc;
@@ -25,4 +26,7 @@ export const register = (app: express.Application) => {
         const user = req.userContext ? req.userContext.userinfo : null;
         res.render("guitars", { isAuthenticated: req.isAuthenticated(), user });
     });
+
+    // register the api routes
+    api.register(app);
 };
