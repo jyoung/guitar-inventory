@@ -19,7 +19,7 @@ export const register = (app: any) => {
     }));
 
     // configure express to use the OIDC router
-    app.use(oidc);
+    app.use(oidc.router);
 
     // add the oidc client to the app locals
     app.locals.oidc = oidc;
