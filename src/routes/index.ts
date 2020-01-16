@@ -4,8 +4,9 @@ export const register = (app: express.Application) => {
     const oidc = app.locals.oidc;
 
     // home
-    app.get("/", (req: express.Request, res: express.Response) => {
-        res.render("index");
+    app.get("/", (req: any, res: express.Response) => {
+        const user = req.userContext ? req.userContext.userInfo : null;
+        res.render("index", { isAuthenticated: req.isAuthenticated(), user });
     });
 
     // login
@@ -20,7 +21,8 @@ export const register = (app: express.Application) => {
     });
 
     // secure route for the guitars page
-    app.get("/guitars", oidc.ensureAuthenticated(), (req: express.Request, res: express.Response) => {
-        res.render("guitars");
+    app.get("/guitars", oidc.ensureAuthenticated(), (req: any, res: express.Response) => {
+        const user = req.userContext ? req.userContext.userinfo : null;
+        res.render("guitars", { isAuthenticated: req.isAuthenticated(), user });
     });
 };
