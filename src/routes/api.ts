@@ -22,7 +22,7 @@ export const register = (app: express.Application) => {
     // using any for req as the normal type does not inclue the userContext
     app.get(`/api/guitars/all`, oidc.ensureAuthenticated(), async (req: any, res: express.Response) => {
         try {
-            const userId = req.userContext.userInfo.sub;
+            const userId = req.userContext.userinfo.sub;
             const guitars = await db.any(`
                 SELECT id, brand, model, year, color
                 FROM guitars
@@ -41,7 +41,7 @@ export const register = (app: express.Application) => {
 
     app.get(`/api/guitars/total`, oidc.ensureAuthenticated(), async (req: any, res: express.Response) => {
         try {
-            const userId = req.userContext.userInfo.sub;
+            const userId = req.userContext.userinfo.sub;
             const total = await db.one(`
                 SELECT COUNT(*) AS total
                 FROM guitars
